@@ -18,6 +18,7 @@
         android:layout_below="@id/toolbar">
 
         <TextView
+            android:id="@+id/tv_no_media"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -35,14 +36,16 @@
         android:paddingRight="16dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_album_name"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:gravity="left"
-            android:text="@string/image_video"/>
+            android:text="@string/all"/>
 
         <TextView
+            android:id="@+id/tv_use"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"
@@ -51,12 +54,13 @@
             android:text="@string/use"/>
 
         <TextView
+            android:id="@+id/tv_preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="64dp"
             android:layout_marginRight="64dp"
             android:padding="4dp"
-            android:text="@string/preview"/>
+            android:text="@string/preview" />
     </FrameLayout>
 </RelativeLayout>
