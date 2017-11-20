@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Miro</string>
+    <string name="no_media">No media yet!</string>
+    <string name="image_video"><![CDATA[Image&Video]]></string>
+    <string name="view">View</string>
+    <string name="preview">preview</string>
+    <string name="use">use</string>
 </resources>
