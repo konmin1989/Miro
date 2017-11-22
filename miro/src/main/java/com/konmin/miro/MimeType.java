@@ -1,6 +1,7 @@
 package com.konmin.miro;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
  * @version create time:2017/11/21
  */
 
-public enum MediaType {
+public enum MimeType {
 
     ///////////////////////////////images///////////////////////////////////////
     JPEG("image/jpeg", arraySetOf("jpg", "jpeg")),                   //
@@ -37,7 +38,7 @@ public enum MediaType {
     private String mMimeTypeName;
     private Set<String> mSuffix;
 
-    MediaType(String mimeTypeName, Set<String> suffix) {
+    MimeType(String mimeTypeName, Set<String> suffix) {
         mMimeTypeName = mimeTypeName;
         mSuffix = suffix;
     }
@@ -45,6 +46,24 @@ public enum MediaType {
     private static Set<String> arraySetOf(String... suffixes) {
         return new HashSet<>(Arrays.asList(suffixes));
     }
+
+
+    public static Set<MimeType> ofAll() {
+        return EnumSet.allOf(MimeType.class);
+    }
+
+    public static Set<MimeType> of(MimeType type, MimeType... rest) {
+        return EnumSet.of(type, rest);
+    }
+
+    public static Set<MimeType> ofImage() {
+        return EnumSet.of(JPEG, PNG, GIF, BMP, WEBP);
+    }
+
+    public static Set<MimeType> ofVideo() {
+        return EnumSet.of(MPEG, MP4, QUICKTIME, THREEGPP, THREEGPP2, MKV, WEBM, TS, AVI);
+    }
+
 
 
 
