@@ -61,7 +61,7 @@ public class MediaLoader extends AsyncTaskLoader<List<Album>> {
 
     public static MediaLoader newInstance(Context context) {
 
-        Set<MimeType> mimeTypeSet = SelectionSpec.getInstance().mShowMimeType;
+        Set<MimeType> mimeTypeSet = SelectionSpec.getInstance().getShowMimeType();
         StringBuilder selectionBuilder = new StringBuilder();
         String[] selectionArgs;
         if (mimeTypeSet != null && mimeTypeSet.size() != 0) {

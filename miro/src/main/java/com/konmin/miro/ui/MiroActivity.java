@@ -54,7 +54,7 @@ public class MiroActivity extends AppCompatActivity implements LoaderManager.Loa
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.bar_title);
 
-        new Miro.Builder().showOnlyVideo().build();
+        //new Miro.Builder().showOnlyVideo().build();
         getSupportLoaderManager().initLoader(1, null, this);
     }
 

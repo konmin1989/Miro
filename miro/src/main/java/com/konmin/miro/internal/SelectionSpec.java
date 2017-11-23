@@ -1,6 +1,7 @@
 package com.konmin.miro.internal;
 
 import com.konmin.miro.MimeType;
+import com.konmin.miro.engine.MediaEngine;
 
 import java.util.Set;
 
@@ -20,11 +21,42 @@ public final class SelectionSpec {
         return mSelectionSpec;
     }
 
-    public Set<MimeType> mShowMimeType;
+    private Set<MimeType> mShowMimeType;
 
-    public void setShowMimeType(Set<MimeType> mShowMimeType) {
-        this.mShowMimeType = mShowMimeType;
+    private int mColumnCount;
+
+    private MediaEngine mMediaEngine;
+
+
+    public static SelectionSpec getSelectionSpec() {
+        return mSelectionSpec;
     }
 
+    public static void setSelectionSpec(SelectionSpec selectionSpec) {
+        SelectionSpec.mSelectionSpec = mSelectionSpec;
+    }
 
+    public Set<MimeType> getShowMimeType() {
+        return mShowMimeType;
+    }
+
+    public void setShowMimeType(Set<MimeType> showMimeType) {
+        this.mShowMimeType = showMimeType;
+    }
+
+    public int getColumnCount() {
+        return mColumnCount;
+    }
+
+    public void setColumnCount(int columnCount) {
+        this.mColumnCount = columnCount;
+    }
+
+    public MediaEngine getmMediaEngine() {
+        return mMediaEngine;
+    }
+
+    public void setmMediaEngine(MediaEngine mediaEngine) {
+        this.mMediaEngine = mediaEngine;
+    }
 }

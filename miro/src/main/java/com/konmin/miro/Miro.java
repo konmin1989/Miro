@@ -21,23 +21,35 @@ public class Miro {
 
     public static class Builder {
 
-        public Builder showOnlyImage() {
-            SelectionSpec.getInstance().setShowMimeType(MimeType.ofImage());
+        private SelectionSpec mSelectionSpec = SelectionSpec.getInstance();
+
+        public Builder onlyImage() {
+            mSelectionSpec.setShowMimeType(MimeType.ofImage());
             return this;
         }
 
-        public Builder showOnlyVideo() {
-            SelectionSpec.getInstance().setShowMimeType(MimeType.ofVideo());
+        public Builder onlyVideo() {
+            mSelectionSpec.setShowMimeType(MimeType.ofVideo());
             return this;
         }
 
-        public Builder showAll() {
-            SelectionSpec.getInstance().setShowMimeType(MimeType.ofAll());
+        public Builder all() {
+            mSelectionSpec.setShowMimeType(MimeType.ofAll());
             return this;
         }
 
-        public Builder showMimeType(MimeType mimeType, MimeType... rest) {
-            SelectionSpec.getInstance().setShowMimeType(MimeType.of(mimeType, rest));
+        public Builder mimeType(MimeType mimeType, MimeType... rest) {
+            mSelectionSpec.setShowMimeType(MimeType.of(mimeType, rest));
+            return this;
+        }
+
+
+        public Builder columnCount(int columnCount) {
+
+            if (columnCount <= 0) {
+                throw new IllegalArgumentException("the column count must greater than zero ");
+            }
+            mSelectionSpec.setColumnCount(columnCount);
             return this;
         }
 

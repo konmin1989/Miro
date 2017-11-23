@@ -1,5 +1,6 @@
 package com.konmin.miro.internal.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.konmin.miro.R;
+import com.konmin.miro.entity.Album;
+import com.konmin.miro.internal.ui.adapter.AlbumListAdapter;
 
 /**
  * Describe
@@ -22,6 +25,8 @@ public class MediaListFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
+
+    private AlbumListAdapter mAlbumListAdapter;
 
 
     @Nullable
@@ -36,5 +41,18 @@ public class MediaListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = view.findViewById(R.id.rv_media_list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mAlbumListAdapter = new AlbumListAdapter() {
+            @Override
+            public void onAlbumSelected(Album album) {
+
+            }
+        };
+        mRecyclerView.setAdapter(mAlbumListAdapter);
     }
 }
