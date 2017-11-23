@@ -65,7 +65,9 @@ public enum MimeType {
     }
 
 
-
+    public static boolean checkIsImageOrVideo(MimeType mimeType) {
+        return mimeType == JPEG || mimeType == PNG || mimeType == GIF || mimeType == BMP || mimeType == WEBP;
+    }
 
     @Override
     public String toString() {

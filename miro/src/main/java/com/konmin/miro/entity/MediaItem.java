@@ -11,16 +11,67 @@ import android.os.Parcelable;
  * @version create time:2017/11/20
  */
 
-public class MediaItem  implements Parcelable{
+public class MediaItem implements Parcelable {
 
-    private final long id;
-    private final String mimeType;
-    private final Uri uri;
-    private final String path;
-    private final long size;
-    private final long duration; // only for video, in ms
+    private long id;
+    private String mimeType;
+    private Uri uri;
+    private String path;
+    private long size;
+    private long duration; // only video has this params
 
 
+    public MediaItem() {
+    }
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
 
     protected MediaItem(Parcel in) {
         id = in.readLong();
