@@ -15,19 +15,17 @@ import java.util.List;
  * @version create time:2017/11/21
  */
 
-public class MediaListAdapter extends RecyclerView.Adapter<MediaItemHolder> {
+public class MediaListAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
 
     private List<MediaItem> mMediaItemList;
 
 
     @Override
-    public MediaItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case Const.VIEW_TYPE_CAPTURE:
 
-                break;
             case Const.VIEW_TYPE_MEDIA:
                 break;
         }
@@ -35,7 +33,7 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaItemHolder> {
     }
 
     @Override
-    public void onBindViewHolder(MediaItemHolder holder, int position) {
+    public void onBindViewHolder(VH holder, int position) {
 
     }
 
@@ -46,8 +44,6 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaItemHolder> {
         }
         return mMediaItemList.size();
     }
-
-
 
 
 }
