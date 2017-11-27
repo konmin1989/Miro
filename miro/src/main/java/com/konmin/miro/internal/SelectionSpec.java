@@ -52,11 +52,11 @@ public final class SelectionSpec {
         this.mColumnCount = columnCount;
     }
 
-    public MediaEngine getmMediaEngine() {
+    public MediaEngine getMediaEngine() {
         return mMediaEngine;
     }
 
-    public void setmMediaEngine(MediaEngine mediaEngine) {
+    public void setMediaEngine(MediaEngine mediaEngine) {
         this.mMediaEngine = mediaEngine;
     }
 }

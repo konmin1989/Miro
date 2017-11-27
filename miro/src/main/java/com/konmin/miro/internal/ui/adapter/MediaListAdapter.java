@@ -23,9 +23,11 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaItemHolder> {
 
     @Override
     public MediaItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         switch (viewType) {
             case Const.VIEW_TYPE_CAPTURE:
 
+                break;
             case Const.VIEW_TYPE_MEDIA:
                 break;
         }
@@ -44,6 +46,8 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaItemHolder> {
         }
         return mMediaItemList.size();
     }
+
+
 
 
 }

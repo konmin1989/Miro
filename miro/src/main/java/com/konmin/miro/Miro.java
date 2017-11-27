@@ -2,6 +2,7 @@ package com.konmin.miro;
 
 import android.support.annotation.IntDef;
 
+import com.konmin.miro.engine.MediaEngine;
 import com.konmin.miro.internal.SelectionSpec;
 
 /**
@@ -50,6 +51,12 @@ public class Miro {
                 throw new IllegalArgumentException("the column count must greater than zero ");
             }
             mSelectionSpec.setColumnCount(columnCount);
+            return this;
+        }
+
+
+        public Builder mediaEngine(MediaEngine mediaEngine) {
+            mSelectionSpec.setMediaEngine(mediaEngine);
             return this;
         }
 

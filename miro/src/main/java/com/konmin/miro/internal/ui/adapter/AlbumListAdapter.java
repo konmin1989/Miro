@@ -22,6 +22,7 @@ public abstract class AlbumListAdapter extends RecyclerView.Adapter<AlbumItemHol
 
     private List<Album> mAlbums;
 
+
     @Override
     public AlbumItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_album, parent, false);
@@ -34,9 +35,8 @@ public abstract class AlbumListAdapter extends RecyclerView.Adapter<AlbumItemHol
 
     @Override
     public void onBindViewHolder(AlbumItemHolder holder, int position) {
-
+        holder.bindData(mAlbums.get(position));
     }
-
 
     @Override
     public int getItemCount() {
@@ -46,7 +46,6 @@ public abstract class AlbumListAdapter extends RecyclerView.Adapter<AlbumItemHol
         return mAlbums.size();
     }
 
-
     @Override
     public void onClick(View v) {
         AlbumItemHolder holder = (AlbumItemHolder) v.getTag();
@@ -55,4 +54,10 @@ public abstract class AlbumListAdapter extends RecyclerView.Adapter<AlbumItemHol
     }
 
     public abstract void onAlbumSelected(Album album);
+
+
+    public void setAlbums(List<Album> albums) {
+        mAlbums = albums;
+    }
+
 }

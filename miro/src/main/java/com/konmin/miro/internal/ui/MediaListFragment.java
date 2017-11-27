@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import com.konmin.miro.R;
 import com.konmin.miro.entity.Album;
 import com.konmin.miro.internal.ui.adapter.AlbumListAdapter;
+import com.konmin.miro.internal.ui.adapter.MediaListAdapter;
+
+import java.util.List;
 
 /**
  * Describe
@@ -25,8 +28,7 @@ public class MediaListFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
-
-    private AlbumListAdapter mAlbumListAdapter;
+    private MediaListAdapter mMediaListAdapter;
 
 
     @Nullable
@@ -41,18 +43,13 @@ public class MediaListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = view.findViewById(R.id.rv_media_list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mMediaListAdapter = new MediaListAdapter();
+        mRecyclerView.setAdapter(mMediaListAdapter);
     }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mAlbumListAdapter = new AlbumListAdapter() {
-            @Override
-            public void onAlbumSelected(Album album) {
-
-            }
-        };
-        mRecyclerView.setAdapter(mAlbumListAdapter);
     }
 }

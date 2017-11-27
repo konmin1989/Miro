@@ -138,6 +138,7 @@ public class MediaLoader extends AsyncTaskLoader<List<Album>> {
             for (String s : albumMap.keySet()) {
                 albumList.add(albumMap.get(s));
             }
+            //allAlbum.setCoverPath(albumList.get(0).getCoverPath());
             return albumList;
         }
 
