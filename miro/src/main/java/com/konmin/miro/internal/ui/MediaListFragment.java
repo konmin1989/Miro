@@ -45,6 +45,8 @@ public class MediaListFragment extends Fragment {
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mMediaListAdapter = new MediaListAdapter();
         mRecyclerView.setAdapter(mMediaListAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        //mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), spanCount));
     }
 
 

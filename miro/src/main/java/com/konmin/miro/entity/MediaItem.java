@@ -22,8 +22,8 @@ public class MediaItem implements Parcelable {
 
 
     public MediaItem() {
+        super();
     }
-
 
     public long getId() {
         return id;
@@ -74,6 +74,7 @@ public class MediaItem implements Parcelable {
     }
 
     protected MediaItem(Parcel in) {
+
         id = in.readLong();
         mimeType = in.readString();
         uri = in.readParcelable(Uri.class.getClassLoader());
@@ -93,6 +94,7 @@ public class MediaItem implements Parcelable {
             return new MediaItem[size];
         }
     };
+
 
     @Override
     public int describeContents() {
