@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.konmin.miro.R;
+import com.konmin.miro.entity.Album;
 import com.konmin.miro.internal.Const;
 import com.konmin.miro.entity.MediaItem;
 
@@ -29,6 +30,12 @@ public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (viewType) {
             case Const.VIEW_TYPE_CAPTURE:
                 View captureView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_capture, parent, false);
+                captureView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
                 return new CaptureHolder(captureView);
             case Const.VIEW_TYPE_MEDIA:
                 View mediaView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_media, parent, false);
@@ -41,7 +48,23 @@ public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
+        /*if (holder instanceof CaptureHolder) {
+
+        } else {
+
+
+        }*/
     }
+
+
+    public void setAlbum(Album album) {
+
+        if (album != null) {
+            mMediaItemList = album.getMediaItems();
+            notifyDataSetChanged();
+        }
+    }
+
 
     @Override
     public int getItemCount() {
@@ -50,6 +73,4 @@ public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
         return mMediaItemList.size();
     }
-
-
 }

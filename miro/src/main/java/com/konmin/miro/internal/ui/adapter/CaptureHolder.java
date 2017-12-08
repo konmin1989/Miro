@@ -16,4 +16,6 @@ public class CaptureHolder extends RecyclerView.ViewHolder {
     public CaptureHolder(View itemView) {
         super(itemView);
     }
+
+
 }

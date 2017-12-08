@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.konmin.miro.R;
 import com.konmin.miro.entity.Album;
+import com.konmin.miro.internal.GridItemDecoration;
+import com.konmin.miro.internal.SelectionSpec;
 import com.konmin.miro.internal.ui.adapter.AlbumListAdapter;
 import com.konmin.miro.internal.ui.adapter.MediaListAdapter;
 
@@ -42,13 +44,23 @@ public class MediaListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = view.findViewById(R.id.rv_media_list);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        final int columnCount = SelectionSpec.getInstance().getColumnCount();
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), columnCount));
+        mRecyclerView.setHasFixedSize(true);
+        int spacing = getResources().getDimensionPixelSize(R.dimen.grid_spacing);
+        mRecyclerView.addItemDecoration(new GridItemDecoration(columnCount, false, spacing));
         mMediaListAdapter = new MediaListAdapter();
         mRecyclerView.setAdapter(mMediaListAdapter);
-        mRecyclerView.setHasFixedSize(true);
-        //mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), spanCount));
     }
 
+
+
+
+    public void setAlbum(Album album){
+
+
+
+    }
 
     @Override
     public void onAttach(Context context) {
