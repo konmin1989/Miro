@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.konmin.miro.R;
 import com.konmin.miro.entity.Album;
+import com.konmin.miro.internal.OnAlbumSelectedListener;
 import com.konmin.miro.internal.ui.adapter.AlbumListAdapter;
 
 import java.util.List;
@@ -41,6 +42,8 @@ public class AlbumListFragment extends Fragment implements View.OnClickListener 
     private boolean mDismissed = true;
 
     private List<Album> mAlbums;
+
+    private OnAlbumSelectedListener mAlbumSelectedListener;
 
     public AlbumListFragment() {
     }
@@ -67,7 +70,10 @@ public class AlbumListFragment extends Fragment implements View.OnClickListener 
         mAlbumListAdapter = new AlbumListAdapter() {
             @Override
             public void onAlbumSelected(Album album) {
-                //
+                if (mAlbumSelectedListener != null) {
+                    mAlbumSelectedListener.onAlbumSelected(album);
+                }
+                dismiss();
             }
         };
         mAlbumListAdapter.setAlbums(mAlbums);
@@ -156,4 +162,11 @@ public class AlbumListFragment extends Fragment implements View.OnClickListener 
             dismiss();
         }
     }
+
+
+    public void setAlbumSelectedListener(OnAlbumSelectedListener listener) {
+        mAlbumSelectedListener =listener;
+    }
+
+
 }

@@ -27,6 +27,7 @@ public final class SelectionSpec {
 
     private MediaEngine mMediaEngine;
 
+    private float thumbnailScale = 0.5f;
 
     public static SelectionSpec getSelectionSpec() {
         return mSelectionSpec;
@@ -58,5 +59,14 @@ public final class SelectionSpec {
 
     public void setMediaEngine(MediaEngine mediaEngine) {
         this.mMediaEngine = mediaEngine;
+    }
+
+
+    public float getThumbnailScale() {
+        return thumbnailScale;
+    }
+
+    public void setThumbnailScale(float thumbnailScale) {
+        this.thumbnailScale = thumbnailScale;
     }
 }

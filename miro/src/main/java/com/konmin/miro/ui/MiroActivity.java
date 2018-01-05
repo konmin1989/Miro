@@ -16,6 +16,7 @@ import com.konmin.miro.R;
 import com.konmin.miro.engine.impl.GlideMediaEngine;
 import com.konmin.miro.entity.Album;
 import com.konmin.miro.internal.MediaLoader;
+import com.konmin.miro.internal.OnAlbumSelectedListener;
 import com.konmin.miro.internal.ui.AlbumListFragment;
 import com.konmin.miro.internal.ui.MediaListFragment;
 
@@ -29,7 +30,7 @@ import java.util.List;
  */
 
 public class MiroActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Album>>, View
-        .OnClickListener {
+        .OnClickListener,OnAlbumSelectedListener {
 
 
     private Toolbar mToolbar;
@@ -66,8 +67,9 @@ public class MiroActivity extends AppCompatActivity implements LoaderManager.Loa
         assignViews();
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.bar_title);
-        new Miro.Builder().mediaEngine(new GlideMediaEngine()).all().columnCount(2).build();
+        new Miro.Builder().mediaEngine(new GlideMediaEngine()).all().columnCount(3).build();
         mAlbumListFragment = new AlbumListFragment();
+        mAlbumListFragment.setAlbumSelectedListener(this);
         mMediaListFragment = new MediaListFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.fl_container, mMediaListFragment).commit();
     }
@@ -94,13 +96,12 @@ public class MiroActivity extends AppCompatActivity implements LoaderManager.Loa
                 if (mAlbums != null && !mAlbums.isEmpty()) {
                     mTvNoMedia.setVisibility(View.GONE);
                     mTvAlbumName.setText(mAlbums.get(0).getName());
-
+                    mMediaListFragment.setAlbum(mAlbums.get(0));
                 } else {
                     mTvNoMedia.setVisibility(View.VISIBLE);
                 }
             }
         });
-
     }
 
 
@@ -108,8 +109,6 @@ public class MiroActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<List<Album>> loader) {
 
     }
-
-
 
 
     @Override
@@ -122,5 +121,10 @@ public class MiroActivity extends AppCompatActivity implements LoaderManager.Loa
             }
             isShowAlbum = !isShowAlbum;
         }
+    }
+
+    @Override
+    public void onAlbumSelected(Album album) {
+        mMediaListFragment.setAlbum(album);
     }
 }

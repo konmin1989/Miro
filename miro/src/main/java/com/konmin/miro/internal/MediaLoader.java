@@ -61,11 +61,11 @@ public class MediaLoader extends AsyncTaskLoader<List<Album>> {
 
     public static MediaLoader newInstance(Context context) {
 
-        Set<MimeType> mimeTypeSet = SelectionSpec.getInstance().getShowMimeType();
-        StringBuilder selectionBuilder = new StringBuilder();
-        String[] selectionArgs;
+        final Set<MimeType> mimeTypeSet = SelectionSpec.getInstance().getShowMimeType();
+        final StringBuilder selectionBuilder = new StringBuilder();
+        final String[] selectionArgs;
         if (mimeTypeSet != null && mimeTypeSet.size() != 0) {
-            int mineTypeSize = mimeTypeSet.size();
+            final int mineTypeSize = mimeTypeSet.size();
             selectionArgs = new String[mineTypeSize];
             int i = 0;
             selectionBuilder.append("(");
@@ -138,10 +138,12 @@ public class MediaLoader extends AsyncTaskLoader<List<Album>> {
             for (String s : albumMap.keySet()) {
                 albumList.add(albumMap.get(s));
             }
-            //allAlbum.setCoverPath(albumList.get(0).getCoverPath());
+            mediaCursor.close();
             return albumList;
         }
-
+        if (mediaCursor != null) {
+            mediaCursor.close();
+        }
         return null;
     }
 }

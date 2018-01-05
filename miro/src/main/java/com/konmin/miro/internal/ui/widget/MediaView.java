@@ -1,6 +1,7 @@
 package com.konmin.miro.internal.ui.widget;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -11,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.konmin.miro.R;
+import com.konmin.miro.entity.MediaItem;
+import com.konmin.miro.internal.SelectionSpec;
+
+import java.io.File;
 
 /**
  * @author Konmin
@@ -50,6 +55,15 @@ public class MediaView extends FrameLayout implements View.OnClickListener {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+    }
+
+
+    public void setMedia(MediaItem mediaItem,int reSize) {
+
+        SelectionSpec selectionSpec = SelectionSpec.getInstance();
+        selectionSpec.getMediaEngine().loadThumbnail(getContext(), reSize, null, mIvThumbnail, Uri.fromFile(new File(mediaItem
+                .getPath())));
+
     }
 
 

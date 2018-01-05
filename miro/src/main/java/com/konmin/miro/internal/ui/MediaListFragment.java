@@ -47,19 +47,15 @@ public class MediaListFragment extends Fragment {
         final int columnCount = SelectionSpec.getInstance().getColumnCount();
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), columnCount));
         mRecyclerView.setHasFixedSize(true);
-        int spacing = getResources().getDimensionPixelSize(R.dimen.grid_spacing);
+        int spacing = getContext().getResources().getDimensionPixelSize(R.dimen.grid_spacing);
         mRecyclerView.addItemDecoration(new GridItemDecoration(columnCount, false, spacing));
-        mMediaListAdapter = new MediaListAdapter();
+        mMediaListAdapter = new MediaListAdapter(mRecyclerView);
         mRecyclerView.setAdapter(mMediaListAdapter);
     }
 
 
-
-
-    public void setAlbum(Album album){
-
-
-
+    public void setAlbum(Album album) {
+        mMediaListAdapter.setAlbum(album);
     }
 
     @Override
