@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.konmin.miro.MimeType;
 import com.konmin.miro.Miro;
 import com.konmin.miro.R;
 import com.konmin.miro.engine.impl.GlideMediaEngine;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 
 public class MiroActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Album>>, View
-        .OnClickListener,OnAlbumSelectedListener {
+        .OnClickListener, OnAlbumSelectedListener {
 
 
     private Toolbar mToolbar;
@@ -126,5 +127,12 @@ public class MiroActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onAlbumSelected(Album album) {
         mMediaListFragment.setAlbum(album);
+        isShowAlbum = false;
+        mTvAlbumName.setText(album.getName());
+    }
+
+    @Override
+    public void onAlbumCancel() {
+        isShowAlbum = false;
     }
 }

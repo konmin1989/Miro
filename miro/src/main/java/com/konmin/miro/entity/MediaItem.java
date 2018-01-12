@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.konmin.miro.MimeType;
+
 /**
  * Describe
  *
@@ -13,6 +15,9 @@ import android.os.Parcelable;
 
 public class MediaItem implements Parcelable {
 
+
+    public static final long CAPTURE_ID = -1L;
+
     private long id;
     private String mimeType;
     private Uri uri;
@@ -20,6 +25,28 @@ public class MediaItem implements Parcelable {
     private long size;
     private long duration; // only video has this params
 
+    private boolean isCheck;
+
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
+    }
+
+    public boolean isGif() {
+        return mimeType.equals(MimeType.GIF.toString());
+    }
+
+
+    public boolean isVideo() {
+        return mimeType.equals(MimeType.MPEG.toString()) || mimeType.equals(MimeType.MP4.toString()) || mimeType.equals
+                (MimeType.QUICKTIME.toString()) || mimeType.equals(MimeType.THREEGPP.toString()) || mimeType.equals(MimeType
+                .THREEGPP2.toString()) || mimeType.equals(MimeType.MKV.toString()) || mimeType.equals(MimeType.WEBM.toString
+                ()) || mimeType.equals(MimeType.TS.toString()) || mimeType.equals(MimeType.AVI.toString());
+    }
 
     public MediaItem() {
         super();

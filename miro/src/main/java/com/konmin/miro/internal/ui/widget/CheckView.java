@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.icu.util.Measure;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -22,8 +24,8 @@ import android.view.View;
 public class CheckView extends View {
 
 
-    public static final int SIZE = 24;
-    private static final float STROKE_WIDTH = 4;
+    public static final int SIZE = 32;
+    private static final float STROKE_WIDTH = 1;
     private float mDensity;
     private float mWidth;
 
@@ -31,7 +33,7 @@ public class CheckView extends View {
     private Paint mFillPaint;
     private Paint mPathPaint;
     private boolean mChecked = false;
-
+    private Rect mRect;
     private Path mCheckPath;
 
     public CheckView(Context context) {
@@ -46,16 +48,17 @@ public class CheckView extends View {
     private void init() {
         mDensity = getContext().getResources().getDisplayMetrics().density;
         mWidth = SIZE * mDensity;
+        mRect = new Rect();
         initStrokePaint();
         initFillPaint();
-        initCheckPath();
+        //initCheckPath();
         initPathPaint();
     }
 
 
     private void initStrokePaint() {
         mStrokePaint = new Paint();
-        mStrokePaint.setColor(Color.GREEN);
+        mStrokePaint.setColor(Color.WHITE);
         mStrokePaint.setStyle(Paint.Style.STROKE);
         mStrokePaint.setAntiAlias(true);
         mStrokePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
@@ -75,16 +78,16 @@ public class CheckView extends View {
         mPathPaint = new Paint();
         mPathPaint.setColor(Color.WHITE);
         mPathPaint.setStyle(Paint.Style.STROKE);
-        //mStrokePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
         mPathPaint.setStrokeWidth(3 * mDensity);
         mPathPaint.setAntiAlias(true);
     }
 
     private void initCheckPath() {
         mCheckPath = new Path();
-        mCheckPath.moveTo(mWidth / 7, mWidth / 2);
-        mCheckPath.lineTo(mWidth / 2.5f, mWidth - mWidth / 4);
-        mCheckPath.lineTo(mWidth - mWidth / 6, mWidth / 5);
+        float width = mWidth - getPaddingLeft() - getPaddingRight();
+        mCheckPath.moveTo(width / 7, width / 2);
+        mCheckPath.lineTo(width / 2.5f, width - width / 4);
+        mCheckPath.lineTo(width - width / 6, width / 5);
     }
 
 
@@ -95,14 +98,43 @@ public class CheckView extends View {
     }
 
 
+    private int onMeasureWidth(int widthMeasureSpec) {
+        int sizeSpec = MeasureSpec.makeMeasureSpec((int) (SIZE * mDensity), MeasureSpec.EXACTLY);
+        int mode = MeasureSpec.getMode(widthMeasureSpec);
+        int size = MeasureSpec.getSize(widthMeasureSpec);
+        switch (mode) {
+            case MeasureSpec.EXACTLY:
+                sizeSpec = size;
+                break;
+            case MeasureSpec.AT_MOST:
+                sizeSpec = Math.min(sizeSpec, size);
+                break;
+            case MeasureSpec.UNSPECIFIED:
+                sizeSpec = size;
+                break;
+        }
+        return sizeSpec;
+    }
+
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        mRect.set(getPaddingLeft(), getPaddingTop(), (int) mWidth - getPaddingRight(), (int) mWidth - getPaddingRight());
         if (mChecked) {
-            canvas.drawRect(0, 0, mWidth, mWidth, mFillPaint);
+            canvas.drawRect(mRect, mFillPaint);
+            if (mCheckPath == null) {
+                initCheckPath();
+            }
+            canvas.translate(getPaddingLeft(), getPaddingTop());
             canvas.drawPath(mCheckPath, mPathPaint);
         } else {
-            canvas.drawRect(0, 0, mWidth, mWidth, mStrokePaint);
+            canvas.drawRect(mRect, mStrokePaint);
         }
     }
 

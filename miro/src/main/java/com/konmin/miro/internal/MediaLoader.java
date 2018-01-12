@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import com.konmin.miro.MimeType;
 import com.konmin.miro.R;
@@ -66,7 +67,7 @@ public class MediaLoader extends AsyncTaskLoader<List<Album>> {
         final String[] selectionArgs;
         if (mimeTypeSet != null && mimeTypeSet.size() != 0) {
             final int mineTypeSize = mimeTypeSet.size();
-            selectionArgs = new String[mineTypeSize];
+            selectionArgs = new String[mineTypeSize + 2];
             int i = 0;
             selectionBuilder.append("(");
             for (MimeType mimeType : mimeTypeSet) {
@@ -77,6 +78,11 @@ public class MediaLoader extends AsyncTaskLoader<List<Album>> {
                 selectionArgs[i] = mimeType.toString();
                 i++;
             }
+            selectionBuilder.append(") AND (");
+            selectionBuilder.append(MediaStore.Files.FileColumns.MEDIA_TYPE).append("=? OR ");
+            selectionArgs[mineTypeSize] = String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE);
+            selectionBuilder.append(MediaStore.Files.FileColumns.MEDIA_TYPE).append("=?");
+            selectionArgs[mineTypeSize + 1] = String.valueOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO);
         } else {
             selectionArgs = new String[2];
             selectionBuilder.append("(");

@@ -11,6 +11,7 @@ import com.konmin.miro.R;
 import com.konmin.miro.entity.Album;
 import com.konmin.miro.internal.Const;
 import com.konmin.miro.entity.MediaItem;
+import com.konmin.miro.internal.OnMediaGridClickListener;
 import com.konmin.miro.internal.SelectionSpec;
 
 import java.util.List;
@@ -22,13 +23,15 @@ import java.util.List;
  * @version create time:2017/11/21
  */
 
-public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnMediaGridClickListener, View
+        .OnClickListener {
 
 
     private List<MediaItem> mMediaItemList;
 
     private RecyclerView mRecyclerView;
     private int mImageResize;
+
 
     public MediaListAdapter(RecyclerView recyclerView) {
         mRecyclerView = recyclerView;
@@ -40,15 +43,12 @@ public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (viewType) {
             case Const.VIEW_TYPE_CAPTURE:
                 View captureView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_capture, parent, false);
-                captureView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
+                captureView.setOnClickListener(this);
                 return new CaptureHolder(captureView);
             case Const.VIEW_TYPE_MEDIA:
                 View mediaView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_media, parent, false);
+                MediaItemHolder holder = new MediaItemHolder(mediaView);
+                holder.setOnMediaGridClickListener(this);
                 return new MediaItemHolder(mediaView);
             default:
                 return null;
@@ -58,12 +58,10 @@ public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-
         if (holder instanceof MediaItemHolder) {
             MediaItemHolder mediaItemHolder = (MediaItemHolder) holder;
             mediaItemHolder.setData(mMediaItemList.get(position), getImageResize(holder.itemView.getContext()));
         }
-
     }
 
 
@@ -84,13 +82,20 @@ public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemViewType(int position) {
 
+        if (mMediaItemList.get(position).getId() == MediaItem.CAPTURE_ID) {
+            return Const.VIEW_TYPE_CAPTURE;
+        }
         return Const.VIEW_TYPE_MEDIA;
     }
 
     public void setAlbum(Album album) {
-
         if (album != null) {
             mMediaItemList = album.getMediaItems();
+            if (SelectionSpec.getInstance().isCapture()) {
+                MediaItem mediaItem = new MediaItem();
+                mediaItem.setId(MediaItem.CAPTURE_ID);
+                mMediaItemList.add(0, mediaItem);
+            }
             notifyDataSetChanged();
         }
     }
@@ -102,5 +107,20 @@ public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             return 0;
         }
         return mMediaItemList.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onMediaClick(MediaItem mediaItem) {
+
+    }
+
+    @Override
+    public void onCheck(MediaItem mediaItem) {
+
     }
 }

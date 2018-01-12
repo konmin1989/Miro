@@ -35,4 +35,9 @@ public class GlideMediaEngine implements MediaEngine {
     public void loadGifImage(Context context, int resizeX, int resizeY, ImageView imageView, Uri uri) {
         Glide.with(context).load(uri).asGif().override(resizeX, resizeY).priority(Priority.HIGH).into(imageView);
     }
+
+    @Override
+    public void loadGifThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri) {
+        Glide.with(context).load(uri).asBitmap().placeholder(placeholder).override(resize, resize).centerCrop().into(imageView);
+    }
 }

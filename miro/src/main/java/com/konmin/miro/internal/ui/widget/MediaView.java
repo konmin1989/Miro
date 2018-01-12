@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.konmin.miro.MimeType;
 import com.konmin.miro.R;
 import com.konmin.miro.entity.MediaItem;
+import com.konmin.miro.internal.OnMediaGridClickListener;
 import com.konmin.miro.internal.SelectionSpec;
 
 import java.io.File;
@@ -22,14 +25,16 @@ import java.io.File;
  * @version create time:2017/11/23
  */
 
-public class MediaView extends FrameLayout implements View.OnClickListener {
+public class MediaView extends SquareLayout implements View.OnClickListener {
 
 
     private ImageView mIvThumbnail;
     private ImageView mIvMediaType;
     private TextView mTvVideoLength;
     private CheckView mCvSelect;
+    private MediaItem mMediaItem;
 
+    private OnMediaGridClickListener mMediaGridClickListener;
 
     public MediaView(@NonNull Context context) {
         this(context, null);
@@ -51,30 +56,64 @@ public class MediaView extends FrameLayout implements View.OnClickListener {
         mIvThumbnail.setOnClickListener(this);
     }
 
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+    public void setMedia(MediaItem mediaItem, int reSize) {
+        mMediaItem = mediaItem;
+        setGif();
+        setImage(reSize);
+        setVideoLength();
     }
 
 
-    public void setMedia(MediaItem mediaItem,int reSize) {
+    private void setGif() {
+        if (mMediaItem.isGif()) {
+            mIvMediaType.setVisibility(VISIBLE);
+        } else {
+            mIvMediaType.setVisibility(GONE);
+        }
+    }
 
-        SelectionSpec selectionSpec = SelectionSpec.getInstance();
-        selectionSpec.getMediaEngine().loadThumbnail(getContext(), reSize, null, mIvThumbnail, Uri.fromFile(new File(mediaItem
-                .getPath())));
 
+    private void setImage(int reSize) {
+
+        if (mMediaItem.isGif()) {
+            SelectionSpec.getInstance().getMediaEngine().loadGifThumbnail(getContext(), reSize, null, mIvThumbnail, Uri
+                    .fromFile(new File(mMediaItem.getPath())));
+        } else {
+            SelectionSpec.getInstance().getMediaEngine().loadThumbnail(getContext(), reSize, null, mIvThumbnail, Uri.fromFile
+                    (new File(mMediaItem.getPath())));
+        }
+
+    }
+
+    private void setVideoLength() {
+        if (mMediaItem.isVideo()) {
+            mTvVideoLength.setVisibility(VISIBLE);
+            mTvVideoLength.setText(DateUtils.formatElapsedTime(mMediaItem.getDuration() / 1000));
+        } else {
+            mTvVideoLength.setVisibility(GONE);
+        }
     }
 
 
     @Override
     public void onClick(View v) {
-
         if (v == mIvThumbnail) {
-            //goto preview;
+            if (mMediaGridClickListener != null) {
+                mMediaGridClickListener.onMediaClick(mMediaItem);
+            }
         }
         if (v == mCvSelect) {
-            mCvSelect.setChecked(!mCvSelect.getCheck());
+            boolean checked = !mCvSelect.getCheck();
+            mCvSelect.setChecked(checked);
+            mMediaItem.setCheck(checked);
+            if (mMediaGridClickListener != null) {
+                mMediaGridClickListener.onCheck(mMediaItem);
+            }
         }
+    }
+
+
+    public void setMediaGridClickListener(OnMediaGridClickListener listener) {
+        this.mMediaGridClickListener = listener;
     }
 }

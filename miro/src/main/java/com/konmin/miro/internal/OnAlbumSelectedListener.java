@@ -12,4 +12,6 @@ import com.konmin.miro.entity.Album;
 public interface OnAlbumSelectedListener {
 
     void onAlbumSelected(Album album);
+
+    void onAlbumCancel();
 }

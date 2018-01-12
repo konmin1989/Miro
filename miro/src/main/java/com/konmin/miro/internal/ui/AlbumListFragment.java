@@ -160,12 +160,15 @@ public class AlbumListFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         if (v == mVBg) {
             dismiss();
+            if (mAlbumSelectedListener != null) {
+                mAlbumSelectedListener.onAlbumCancel();
+            }
         }
     }
 
 
     public void setAlbumSelectedListener(OnAlbumSelectedListener listener) {
-        mAlbumSelectedListener =listener;
+        mAlbumSelectedListener = listener;
     }
 
 

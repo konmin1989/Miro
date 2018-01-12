@@ -29,6 +29,8 @@ public final class SelectionSpec {
 
     private float thumbnailScale = 0.5f;
 
+    private boolean isCapture =true;
+
     public static SelectionSpec getSelectionSpec() {
         return mSelectionSpec;
     }
@@ -68,5 +70,14 @@ public final class SelectionSpec {
 
     public void setThumbnailScale(float thumbnailScale) {
         this.thumbnailScale = thumbnailScale;
+    }
+
+
+    public boolean isCapture() {
+        return isCapture;
+    }
+
+    public void setCapture(boolean capture) {
+        isCapture = capture;
     }
 }

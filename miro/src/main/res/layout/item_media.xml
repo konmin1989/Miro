@@ -12,6 +12,8 @@
         android:id="@+id/iv_media_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_gif"
+        android:layout_margin="8dp"
         android:layout_gravity="bottom|end"/>
 
     <TextView
@@ -22,10 +24,11 @@
         android:layout_margin="8dp"
         android:textColor="@color/white"/>
 
+
     <com.konmin.miro.internal.ui.widget.CheckView
         android:id="@+id/cv_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|top"
-        android:layout_margin="8dp"/>
+        android:padding="8dp"/>
 </merge>

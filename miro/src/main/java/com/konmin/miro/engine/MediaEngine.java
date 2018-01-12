@@ -41,4 +41,13 @@ public interface MediaEngine {
      */
     void loadGifImage(Context context, int resizeX, int resizeY, ImageView imageView, Uri uri);
 
+
+    /**
+     * @param context
+     * @param resize
+     * @param placeholder
+     * @param imageView
+     * @param uri
+     */
+    void loadGifThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri);
 }
