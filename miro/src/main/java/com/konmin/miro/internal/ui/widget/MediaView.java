@@ -17,6 +17,7 @@ import com.konmin.miro.R;
 import com.konmin.miro.entity.MediaItem;
 import com.konmin.miro.internal.OnMediaGridClickListener;
 import com.konmin.miro.internal.SelectionSpec;
+import com.konmin.miro.internal.ui.adapter.MediaItemHolder;
 
 import java.io.File;
 
@@ -33,6 +34,7 @@ public class MediaView extends SquareLayout implements View.OnClickListener {
     private TextView mTvVideoLength;
     private CheckView mCvSelect;
     private MediaItem mMediaItem;
+    private MediaItemHolder mMediaItemHolder;
 
     private OnMediaGridClickListener mMediaGridClickListener;
 
@@ -54,6 +56,11 @@ public class MediaView extends SquareLayout implements View.OnClickListener {
         mCvSelect = findViewById(R.id.cv_select);
         mCvSelect.setOnClickListener(this);
         mIvThumbnail.setOnClickListener(this);
+    }
+
+
+    public void setMediaItemHolder(MediaItemHolder holder){
+        this.mMediaItemHolder = holder;
     }
 
     public void setMedia(MediaItem mediaItem, int reSize) {
@@ -99,7 +106,7 @@ public class MediaView extends SquareLayout implements View.OnClickListener {
     public void onClick(View v) {
         if (v == mIvThumbnail) {
             if (mMediaGridClickListener != null) {
-                mMediaGridClickListener.onMediaClick(mMediaItem);
+                mMediaGridClickListener.onMediaClick(mMediaItem,mMediaItemHolder);
             }
         }
         if (v == mCvSelect) {
@@ -107,7 +114,7 @@ public class MediaView extends SquareLayout implements View.OnClickListener {
             mCvSelect.setChecked(checked);
             mMediaItem.setCheck(checked);
             if (mMediaGridClickListener != null) {
-                mMediaGridClickListener.onCheck(mMediaItem);
+                mMediaGridClickListener.onCheck(mMediaItem,mMediaItemHolder);
             }
         }
     }

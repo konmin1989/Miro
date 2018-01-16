@@ -23,6 +23,7 @@ public class MediaItemHolder extends RecyclerView.ViewHolder {
     public MediaItemHolder(View itemView) {
         super(itemView);
         mMediaView = (MediaView) itemView;
+        mMediaView.setMediaItemHolder(this);
     }
 
     public void setData(MediaItem item, int size) {

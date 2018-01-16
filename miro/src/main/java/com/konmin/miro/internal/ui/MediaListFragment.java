@@ -1,6 +1,7 @@
 package com.konmin.miro.internal.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.konmin.miro.R;
 import com.konmin.miro.entity.Album;
+import com.konmin.miro.entity.MediaItem;
 import com.konmin.miro.internal.GridItemDecoration;
 import com.konmin.miro.internal.SelectionSpec;
 import com.konmin.miro.internal.ui.adapter.AlbumListAdapter;
@@ -26,7 +28,7 @@ import java.util.List;
  * @version create time:2017/11/21
  */
 
-public class MediaListFragment extends Fragment {
+public class MediaListFragment extends Fragment implements MediaListAdapter.OnMediaClickListener,MediaListAdapter.OnMediaSelectedListener{
 
 
     private RecyclerView mRecyclerView;
@@ -61,5 +63,16 @@ public class MediaListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+    }
+
+    @Override
+    public void onMediaClick(MediaItem mediaItem, int position) {
+        Intent intent = new Intent(getContext(),PreviewActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onSelected(MediaItem mediaItem, boolean selected, int position) {
+
     }
 }

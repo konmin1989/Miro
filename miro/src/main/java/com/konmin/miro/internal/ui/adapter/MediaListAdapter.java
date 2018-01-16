@@ -32,6 +32,10 @@ public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private RecyclerView mRecyclerView;
     private int mImageResize;
 
+    private  OnMediaSelectedListener mOnMediaSelectedListener;
+    private  OnMediaClickListener mOnMediaClickListener;
+
+
 
     public MediaListAdapter(RecyclerView recyclerView) {
         mRecyclerView = recyclerView;
@@ -115,12 +119,38 @@ public class MediaListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onMediaClick(MediaItem mediaItem) {
-
+    public void onMediaClick(MediaItem mediaItem, MediaItemHolder holder) {
+        if(mOnMediaClickListener!=null){
+            mOnMediaClickListener.onMediaClick(mediaItem,holder.getAdapterPosition());
+        }
     }
 
     @Override
-    public void onCheck(MediaItem mediaItem) {
+    public void onCheck(MediaItem mediaItem, MediaItemHolder holder) {
 
+        if(mOnMediaSelectedListener!=null){
+            mOnMediaSelectedListener.onSelected(mediaItem,mediaItem.isCheck(),holder.getAdapterPosition());
+        }
+    }
+
+
+    public interface OnMediaClickListener{
+
+
+        void onMediaClick(MediaItem mediaItem,int position);
+    }
+
+
+    public interface OnMediaSelectedListener{
+        void onSelected(MediaItem mediaItem,boolean selected,int position);
+    }
+
+
+    public void setOnMediaClickListener(OnMediaClickListener listener) {
+        this.mOnMediaClickListener = listener;
+    }
+
+    public void setOnMediaSelectedListener(OnMediaSelectedListener listener) {
+        this.mOnMediaSelectedListener = listener;
     }
 }

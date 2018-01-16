@@ -13,7 +13,7 @@ import com.konmin.miro.internal.ui.widget.MediaView;
 
 public interface OnMediaGridClickListener {
 
-    void onMediaClick(MediaItem mediaItem);
+    void onMediaClick(MediaItem mediaItem,MediaItemHolder holder);
 
-    void onCheck(MediaItem mediaItem);
+    void onCheck(MediaItem mediaItem,MediaItemHolder holder);
 }

@@ -6,6 +6,7 @@
 
     <application>
         <activity android:name=".ui.MiroActivity"/>
+        <activity android:name=".internal.ui.PreviewActivity"/>
     </application>
 
 </manifest>
