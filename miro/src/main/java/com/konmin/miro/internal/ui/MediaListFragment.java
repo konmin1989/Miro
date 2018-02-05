@@ -28,7 +28,8 @@ import java.util.List;
  * @version create time:2017/11/21
  */
 
-public class MediaListFragment extends Fragment implements MediaListAdapter.OnMediaClickListener,MediaListAdapter.OnMediaSelectedListener{
+public class MediaListFragment extends Fragment implements MediaListAdapter.OnMediaClickListener, MediaListAdapter
+        .OnMediaSelectedListener {
 
 
     private RecyclerView mRecyclerView;
@@ -52,6 +53,8 @@ public class MediaListFragment extends Fragment implements MediaListAdapter.OnMe
         int spacing = getContext().getResources().getDimensionPixelSize(R.dimen.grid_spacing);
         mRecyclerView.addItemDecoration(new GridItemDecoration(columnCount, false, spacing));
         mMediaListAdapter = new MediaListAdapter(mRecyclerView);
+        mMediaListAdapter.setOnMediaClickListener(this);
+        mMediaListAdapter.setOnMediaSelectedListener(this);
         mRecyclerView.setAdapter(mMediaListAdapter);
     }
 
@@ -67,7 +70,7 @@ public class MediaListFragment extends Fragment implements MediaListAdapter.OnMe
 
     @Override
     public void onMediaClick(MediaItem mediaItem, int position) {
-        Intent intent = new Intent(getContext(),PreviewActivity.class);
+        Intent intent = new Intent(getContext(), PreviewActivity.class);
         startActivity(intent);
     }
 

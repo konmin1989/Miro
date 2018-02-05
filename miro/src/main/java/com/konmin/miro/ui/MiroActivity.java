@@ -73,12 +73,13 @@ public class MiroActivity extends AppCompatActivity implements LoaderManager.Loa
         mAlbumListFragment.setAlbumSelectedListener(this);
         mMediaListFragment = new MediaListFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.fl_container, mMediaListFragment).commit();
+        getSupportLoaderManager().initLoader(1, null, this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getSupportLoaderManager().initLoader(1, null, this);
+
     }
 
 

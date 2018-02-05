@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Miro</string>
+    <string name="no_media">没有媒体文件!</string>
+    <string name="image_video"><![CDATA[图片&影片]]></string>
+    <string name="view">查看</string>
+    <string name="preview">预览</string>
+    <string name="use">使用</string>
+    <string name="all">全部</string>
+    <string name="bar_title">选择媒体</string>
+    <string name="back">返回</string>
+</resources>
