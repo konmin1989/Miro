@@ -1,5 +1,6 @@
 package com.konmin.miro.ui;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.konmin.miro.MimeType;
 import com.konmin.miro.Miro;
@@ -18,6 +20,7 @@ import com.konmin.miro.engine.impl.GlideMediaEngine;
 import com.konmin.miro.entity.Album;
 import com.konmin.miro.internal.MediaLoader;
 import com.konmin.miro.internal.OnAlbumSelectedListener;
+import com.konmin.miro.internal.PermissionUtils;
 import com.konmin.miro.internal.ui.AlbumListFragment;
 import com.konmin.miro.internal.ui.MediaListFragment;
 
@@ -64,6 +67,26 @@ public class MiroActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (PermissionUtils.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            init();
+        } else {
+            PermissionUtils.requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, new PermissionUtils
+                    .PermissionListener() {
+                @Override
+                public void onPermissionResult(boolean grantedResult) {
+                    if (grantedResult) {
+                        init();
+                    } else {
+                        Toast.makeText(MiroActivity.this, "没有读写文件的权限，请设置允许", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+
+    private void init() {
+
         setContentView(R.layout.activity_miro);
         assignViews();
         setSupportActionBar(mToolbar);
@@ -75,6 +98,7 @@ public class MiroActivity extends AppCompatActivity implements LoaderManager.Loa
         getSupportFragmentManager().beginTransaction().add(R.id.fl_container, mMediaListFragment).commit();
         getSupportLoaderManager().initLoader(1, null, this);
     }
+
 
     @Override
     protected void onResume() {

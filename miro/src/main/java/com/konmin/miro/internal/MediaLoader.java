@@ -3,12 +3,9 @@ package com.konmin.miro.internal;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
-import com.bumptech.glide.util.Util;
 import com.konmin.miro.MimeType;
 import com.konmin.miro.R;
 import com.konmin.miro.entity.Album;
@@ -62,6 +59,11 @@ public class MediaLoader extends AsyncTaskLoader<List<Album>> {
     }
 
 
+    @Override
+    public void deliverResult(List<Album> data) {
+        super.deliverResult(data);
+    }
+
     public static MediaLoader newInstance(Context context) {
 
         final Set<MimeType> mimeTypeSet = SelectionSpec.getInstance().getShowMimeType();
@@ -100,15 +102,6 @@ public class MediaLoader extends AsyncTaskLoader<List<Album>> {
 
     @Override
     public List<Album> loadInBackground() {
-
-
-
-        //check the permission if could read extra storage
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
-
-
-
-        }
 
         Cursor mediaCursor = getContext().getContentResolver().query(QUERY_URI, PROJECTION, mSelection, mSelectionArgs,
                 BUCKET_ORDER_BY);
@@ -163,4 +156,6 @@ public class MediaLoader extends AsyncTaskLoader<List<Album>> {
         }
         return null;
     }
+
+
 }
